@@ -18,5 +18,14 @@ import sys
 def window():
     app = QApplication(sys.argv)
     win = QMainWindow()
-    win.setGeometry(960, 540, 300, 300)
+    win.setGeometry(960, 540, 600, 400)
     win.setWindowTitle("expense tracker")
+
+    label = QtWidgets.QLabel(win)
+    label.setText("Total spendings:")
+    label.move(100, 100)
+
+    win.show()
+    sys.exit(app.exec_())
+
+window()
