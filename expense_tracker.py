@@ -20,8 +20,8 @@ class MyWindow(QMainWindow):
     def error(self):
         self.msg = QMessageBox()
         self.msg.setIcon(QMessageBox.Critical)
-        self.msg.setText("ERROR!")
-        self.msg.setInformativeText('PUT A NUMBER')
+        self.msg.setText("WRONG FORMAT!")
+        self.msg.setInformativeText('PUT A NUMBER!')
         self.msg.setWindowTitle("Error")
         self.msg.exec_()
 
