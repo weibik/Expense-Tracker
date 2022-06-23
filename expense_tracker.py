@@ -14,27 +14,39 @@ from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
 
+class MyWindow(QMainWindow):
+    def __init__(self):
+        super(MyWindow, self).__init__()
+        self.setGeometry(960, 540, 600, 400)
+        self.setWindowTitle("Expense Tracker")
+        self.setWindowIcon(QtGui.QIcon("logo.png"))
+        self.initUI()
+
+    def initUI(self):
+        self.label = QtWidgets.QLabel(self)
+        self.label.setText("Total spendings: " + str(suma))
+        self.label.move(250, 0)
+
+        self.addExpenseButton = QtWidgets.QPushButton(self)
+        self.addExpenseButton.setText("Add expense")
+        self.addExpenseButton.move(250, 350)
+
+        self.expenseInput = QtWidgets.QLineEdit(self)
+        self.expenseInput.setText("enter value")
+        self.expenseInput.setAlignment(QtCore.Qt.AlignCenter)
+        self.expenseInput.move (250, 300)
+
+    def clickAddExpenseButton():
+        print("clicked")
+
+def window():
+    app = QApplication(sys.argv)
+    win = MyWindow()
+    win.show()
+    sys.exit(app.exec_())
+
 suma = 0
+categories = ["parties", "car", "dates", "food", "books", "clothes","other"]
 
-app = QApplication(sys.argv)
-win = QMainWindow()
-win.setGeometry(960, 540, 600, 400)
-win.setWindowTitle("Expense Tracker")
-win.setWindowIcon(QtGui.QIcon("logo.png"))
 
-label = QtWidgets.QLabel(win)
-label.setText("Total spendings: " + str(suma))
-label.move(250, 0)
-
-addExpenseButton = QtWidgets.QPushButton(win)
-addExpenseButton.setText("Add expense")
-addExpenseButton.move(250, 350)
-
-expenseInput = QtWidgets.QLineEdit(win)
-expenseInput.setText("enter value")
-expenseInput.setAlignment(QtCore.Qt.AlignCenter)
-expenseInput.move (250, 300)
-
-win.show()
-sys.exit(app.exec_())
-
+window()
