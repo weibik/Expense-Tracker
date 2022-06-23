@@ -10,27 +10,31 @@ import imp
 from pandas import *
 import matplotlib as mpb
 from tkinter import *
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
 
+suma = 0
 
-def window():
-    app = QApplication(sys.argv)
-    app.setStyleSheet("QLabel{font-size: 10pt;}")
-    win = QMainWindow()
-    win.setGeometry(960, 540, 600, 400)
-    win.setWindowTitle("expense tracker")
+app = QApplication(sys.argv)
+win = QMainWindow()
+win.setGeometry(960, 540, 600, 400)
+win.setWindowTitle("Expense Tracker")
+win.setWindowIcon(QtGui.QIcon("logo.png"))
 
-    label = QtWidgets.QLabel(win)
-    label.setText("Total spendings:")
-    label.move(250, 0)
+label = QtWidgets.QLabel(win)
+label.setText("Total spendings: " + str(suma))
+label.move(250, 0)
 
-    win.show()
-    sys.exit(app.exec_())
+addExpenseButton = QtWidgets.QPushButton(win)
+addExpenseButton.setText("Add expense")
+addExpenseButton.move(250, 350)
 
+expenseInput = QtWidgets.QLineEdit(win)
+expenseInput.setText("enter value")
+expenseInput.setAlignment(QtCore.Qt.AlignCenter)
+expenseInput.move (250, 300)
 
+win.show()
+sys.exit(app.exec_())
 
-
-
-window()
