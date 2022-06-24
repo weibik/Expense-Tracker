@@ -8,7 +8,6 @@ import sys
 
 class MyWindow(QMainWindow):
     total = 0
-    categories = ["parties", "car", "dates", "food", "books", "clothes", "other"]
 
     def __init__(self):
         super(MyWindow, self).__init__()
@@ -41,11 +40,23 @@ class MyWindow(QMainWindow):
 
         self.addExpenseButton = QtWidgets.QPushButton(self)
         self.addExpenseButton.setText("Add expense")
-        self.addExpenseButton.move(250, 350)
+        self.addExpenseButton.setGeometry(250, 350, 100, 36)
         self.addExpenseButton.clicked.connect(self.clickAddExpenseButton)
 
         self.expenseInput = QtWidgets.QLineEdit(self)
         self.expenseInput.move (250, 300)
+
+        self.boxWithcategories = QtWidgets.QComboBox(self)
+        self.boxWithcategories.setGeometry(350, 351, 80, 34)
+        categories = ["Parties", "Car", "Dates", "Food", "Books", "Clothes", "Other"]
+        ### Here are the things to set center alignment within comboBox
+
+        self.boxWithcategories.setEditable(True)
+        self.boxWithcategories.addItems(categories)
+        line_edit = self.boxWithcategories.lineEdit()
+        line_edit.setAlignment(QtCore.Qt.AlignCenter)
+        line_edit.setReadOnly(True)
+
 
 def window():
     app = QApplication(sys.argv)
