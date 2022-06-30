@@ -33,6 +33,10 @@ class MyWindow(QMainWindow):
         self.expenseInput.clear()
         self.update()
 
+    def clickClearButton(self):
+        self.total = 0
+        self.label.setText("Total spendings: " + str(self.total))
+
     def initUI(self):
         self.label = QtWidgets.QLabel(self)
         self.label.setText("Total spendings: " + str(self.total))
@@ -43,14 +47,20 @@ class MyWindow(QMainWindow):
         self.addExpenseButton.setGeometry(250, 350, 100, 36)
         self.addExpenseButton.clicked.connect(self.clickAddExpenseButton)
 
+        self.clearButton = QtWidgets.QPushButton(self)
+        self.clearButton.setText("Clear")
+        self.clearButton.setGeometry(25, 350, 100, 36)
+        self.clearButton.clicked.connect(self.clickClearButton)
+
         self.expenseInput = QtWidgets.QLineEdit(self)
         self.expenseInput.move (250, 300)
 
         self.boxWithcategories = QtWidgets.QComboBox(self)
         self.boxWithcategories.setGeometry(350, 351, 80, 34)
         categories = ["Parties", "Car", "Dates", "Food", "Books", "Clothes", "Other"]
+        
+        
         ### Here are the things to set center alignment within comboBox
-
         self.boxWithcategories.setEditable(True)
         self.boxWithcategories.addItems(categories)
         line_edit = self.boxWithcategories.lineEdit()
