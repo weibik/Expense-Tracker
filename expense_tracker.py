@@ -17,7 +17,7 @@ class MyWindow(QMainWindow):
         self.setWindowIcon(QtGui.QIcon("logo.png"))
         self.initUI()
 
-    def error(self):
+    def errorWithInput(self):
         self.msg = QMessageBox()
         self.msg.setIcon(QMessageBox.Critical)
         self.msg.setText("WRONG FORMAT!")
@@ -34,10 +34,22 @@ class MyWindow(QMainWindow):
             match choice:
                 case 'Parties':
                     self.parties += value
+                case 'Car':
+                    self.car += value
+                case 'Dates':
+                    self.dates += value
+                case 'Food':
+                    self.food += value
+                case 'Books':
+                    self.books += value
+                case 'Clothes':
+                    self.clothes += value
+                case 'Others':
+                    self.others += value
         else:
-            self.error()
+            self.errorWithInput()
         self.label.setText("Total spendings: " + str(self.total))
-        self.t.setText("Parties: " + str(self.parties))
+        #self.t.setText("Parties: " + str(self.parties))
         self.expenseInput.clear()
         self.update()
 
@@ -50,9 +62,9 @@ class MyWindow(QMainWindow):
         self.label.setText("Total spendings: " + str(self.total))
         self.label.move(250, 0)
 
-        self.t = QtWidgets.QLabel(self)
-        self.t.setText("parties: " + str(self.parties))
-        self.t.move(150, 0)
+        #self.t = QtWidgets.QLabel(self)
+        #self.t.setText("parties: " + str(self.parties))
+        #self.t.move(150, 0)
 
         self.addExpenseButton = QtWidgets.QPushButton(self)
         self.addExpenseButton.setText("Add expense")
