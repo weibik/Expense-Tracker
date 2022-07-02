@@ -8,6 +8,7 @@ import sys
 
 class MyWindow(QMainWindow):
     total = 0
+    parties = car = dates = food = books = clothes = others = 0
 
     def __init__(self):
         super(MyWindow, self).__init__()
@@ -26,10 +27,17 @@ class MyWindow(QMainWindow):
 
     def clickAddExpenseButton(self):
         if self.expenseInput.text().isnumeric():
-            self.total  += int(self.expenseInput.text())
+            value = int(self.expenseInput.text())
+            self.total  += value
+
+            choice = str(self.boxWithcategories.currentText())
+            match choice:
+                case 'Parties':
+                    self.parties += value
         else:
             self.error()
         self.label.setText("Total spendings: " + str(self.total))
+        self.t.setText("Parties: " + str(self.parties))
         self.expenseInput.clear()
         self.update()
 
@@ -41,6 +49,10 @@ class MyWindow(QMainWindow):
         self.label = QtWidgets.QLabel(self)
         self.label.setText("Total spendings: " + str(self.total))
         self.label.move(250, 0)
+
+        self.t = QtWidgets.QLabel(self)
+        self.t.setText("parties: " + str(self.parties))
+        self.t.move(150, 0)
 
         self.addExpenseButton = QtWidgets.QPushButton(self)
         self.addExpenseButton.setText("Add expense")
@@ -57,7 +69,7 @@ class MyWindow(QMainWindow):
 
         self.boxWithcategories = QtWidgets.QComboBox(self)
         self.boxWithcategories.setGeometry(350, 351, 80, 34)
-        categories = ["Parties", "Car", "Dates", "Food", "Books", "Clothes", "Other"]
+        categories = ["Parties", "Car", "Dates", "Food", "Books", "Clothes", "Others"]
         
         
         ### Here are the things to set center alignment within comboBox
