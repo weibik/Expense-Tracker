@@ -32,8 +32,10 @@ class MyWindow(QMainWindow):
         series.setLabelsVisible(True)
 
         series.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
+        i = 0
         for slice in series.slices():
-            slice.setLabel("{:.2f}%".format(100 * slice.percentage()))
+            slice.setLabel(self.categ[i] + " - {:.2f}%".format(100 * slice.percentage()))
+            i += 1
 
         chart = QChart()
         chart.addSeries(series)
@@ -41,7 +43,6 @@ class MyWindow(QMainWindow):
         chart.setAnimationOptions(QChart.SeriesAnimations)
         chart.setTitle("Expenses in different categories")
         chart.legend().setVisible(True)
-        #chart.legend().setAlignment(QtCore.Qt.AlignBottom)
 
         chart.legend().markers(series)[0].setLabel("Parties")
         chart.legend().markers(series)[1].setLabel("Cars")
