@@ -2,13 +2,16 @@
 #    2022
 # Expense tracker
 
-from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5.QtChart import QChart, QChartView, QPieSeries, QPieSlice
+from PyQt5.QtGui import QPainter, QPen
+from PyQt5 import QtWidgets, QtCore, QtGui
 import sys
 
 class MyWindow(QMainWindow):
     total = 0
     parties = car = dates = food = books = clothes = others = 0
+    categ = ["Parties", "Car", "Dates", "Food", "Books", "Clothes", "Others"]
 
     def __init__(self):
         super(MyWindow, self).__init__()
@@ -16,6 +19,43 @@ class MyWindow(QMainWindow):
         self.setWindowTitle("Expense Tracker")
         self.setWindowIcon(QtGui.QIcon("logo.png"))
         self.initUI()
+
+    def createChart(self):
+        series = QPieSeries()
+        series.append(self.categ[0], self.parties)
+        series.append(self.categ[1], self.car)
+        series.append(self.categ[2], self.dates)
+        series.append(self.categ[3], self.food)
+        series.append(self.categ[4], self.books)
+        series.append(self.categ[5], self.clothes)
+        series.append(self.categ[6], self.others)
+        series.setLabelsVisible(True)
+
+        series.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
+        for slice in series.slices():
+            slice.setLabel("{:.2f}%".format(100 * slice.percentage()))
+
+        chart = QChart()
+        chart.addSeries(series)
+        chart.createDefaultAxes()
+        chart.setAnimationOptions(QChart.SeriesAnimations)
+        chart.setTitle("Expenses in different categories")
+        chart.legend().setVisible(True)
+        #chart.legend().setAlignment(QtCore.Qt.AlignBottom)
+
+        chart.legend().markers(series)[0].setLabel("Parties")
+        chart.legend().markers(series)[1].setLabel("Cars")
+        chart.legend().markers(series)[2].setLabel("Dates")
+        chart.legend().markers(series)[3].setLabel("Food")
+        chart.legend().markers(series)[4].setLabel("Books")
+        chart.legend().markers(series)[5].setLabel("Clothes")
+        chart.legend().markers(series)[6].setLabel("Others")
+
+        chartview = QChartView(chart)
+        chartview.setRenderHint(QPainter.Antialiasing)
+
+        self.setCentralWidget(chartview)
+
 
     def errorWithInput(self):
         self.msg = QMessageBox()
@@ -76,12 +116,17 @@ class MyWindow(QMainWindow):
         self.clearButton.setGeometry(25, 350, 100, 36)
         self.clearButton.clicked.connect(self.clickClearButton)
 
+        self.graphButton = QtWidgets.QPushButton(self)
+        self.graphButton.setText("Show graph")
+        self.graphButton.setGeometry(475, 350, 100, 36)
+        self.graphButton.clicked.connect(self.createChart)
+
         self.expenseInput = QtWidgets.QLineEdit(self)
         self.expenseInput.move (250, 300)
 
         self.boxWithcategories = QtWidgets.QComboBox(self)
         self.boxWithcategories.setGeometry(350, 351, 80, 34)
-        categories = ["Parties", "Car", "Dates", "Food", "Books", "Clothes", "Others"]
+        categories = self.categ
         
         
         ### Here are the things to set center alignment within comboBox
