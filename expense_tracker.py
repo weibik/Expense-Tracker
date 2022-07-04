@@ -21,6 +21,8 @@ class MyWindow(QMainWindow):
         self.initUI()
 
     def createChart(self):
+        self.chartLayout = QtWidgets.QHBoxLayout()
+
         series = QPieSeries()
         series.append(self.categ[0], self.parties)
         series.append(self.categ[1], self.car)
@@ -55,7 +57,13 @@ class MyWindow(QMainWindow):
         chartview = QChartView(chart)
         chartview.setRenderHint(QPainter.Antialiasing)
 
-        self.setCentralWidget(chartview)
+        backButton = QtWidgets.QPushButton(self)
+        backButton.setText("Back")
+        backButton.clicked.connect(self.initUI)
+
+        self.chartLayout.addWidget(chartview)
+        self.setLayout(self.chartLayout)
+        #self.setCentralWidget(chartview)
 
 
     def errorWithInput(self):
@@ -99,13 +107,11 @@ class MyWindow(QMainWindow):
         self.label.setText("Total spendings: " + str(self.total))
 
     def initUI(self):
+        self.mainLayout = QtWidgets.QHBoxLayout()
+        
         self.label = QtWidgets.QLabel(self)
         self.label.setText("Total spendings: " + str(self.total))
         self.label.move(250, 0)
-
-        #self.t = QtWidgets.QLabel(self)
-        #self.t.setText("parties: " + str(self.parties))
-        #self.t.move(150, 0)
 
         self.addExpenseButton = QtWidgets.QPushButton(self)
         self.addExpenseButton.setText("Add expense")
@@ -129,7 +135,17 @@ class MyWindow(QMainWindow):
         self.boxWithcategories.setGeometry(350, 351, 80, 34)
         categories = self.categ
         
+
+        self.mainLayout.addWidget(self.label)
+        self.mainLayout.addWidget(self.addExpenseButton)
+        self.mainLayout.addWidget(self.clearButton)
+        self.mainLayout.addWidget(self.graphButton)
+        self.mainLayout.addWidget(self.expenseInput)
+        self.mainLayout.addWidget(self.boxWithcategories)
+
+        self.setLayout(self.mainLayout)
         
+
         ### Here are the things to set center alignment within comboBox
         self.boxWithcategories.setEditable(True)
         self.boxWithcategories.addItems(categories)
