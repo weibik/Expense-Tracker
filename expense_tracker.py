@@ -7,6 +7,7 @@ from PyQt5.QtChart import QChart, QChartView, QPieSeries, QPieSlice
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5 import QtWidgets, QtCore, QtGui
 import sys
+import time
 
 class MyWindow(QMainWindow):
     total = 0
@@ -54,15 +55,21 @@ class MyWindow(QMainWindow):
         chart.legend().markers(series)[5].setLabel("Clothes")
         chart.legend().markers(series)[6].setLabel("Others")
 
-        chartview = QChartView(chart)
-        chartview.setRenderHint(QPainter.Antialiasing)
+        self.chartview = QChartView(chart)
+        self.chartview.setRenderHint(QPainter.Antialiasing)
 
-        backButton = QtWidgets.QPushButton(self)
-        backButton.setText("Back")
-        backButton.clicked.connect(self.initUI)
+        self.backButton = QtWidgets.QPushButton(self)
+        self.backButton.setText("Back")
+        self.backButton.clicked.connect(self.initUI)
 
-        self.mainLayout.addWidget(chartview)
-        self.setCentralWidget(chartview)
+        self.mainLayout.addWidget(self.chartview)
+        self.setCentralWidget(self.chartview)
+        self.mainLayout.addWidget(self.backButton)
+        self.setLayout(self.mainLayout)
+
+        #for i in range(0, 3):
+        #    time.sleep(1)
+        #self.chartview.setHidden(not self.chartview.isHidden())
 
 
     def errorWithInput(self):
