@@ -12,6 +12,7 @@ class MyWindow(QMainWindow):
     total = 0
     parties = car = dates = food = books = clothes = others = 0
     categ = ["Parties", "Car", "Dates", "Food", "Books", "Clothes", "Others"]
+    mainLayout = QtWidgets.QHBoxLayout()
 
     def __init__(self):
         super(MyWindow, self).__init__()
@@ -21,7 +22,6 @@ class MyWindow(QMainWindow):
         self.initUI()
 
     def createChart(self):
-        self.chartLayout = QtWidgets.QHBoxLayout()
 
         series = QPieSeries()
         series.append(self.categ[0], self.parties)
@@ -61,9 +61,8 @@ class MyWindow(QMainWindow):
         backButton.setText("Back")
         backButton.clicked.connect(self.initUI)
 
-        self.chartLayout.addWidget(chartview)
-        self.setLayout(self.chartLayout)
-        #self.setCentralWidget(chartview)
+        self.mainLayout.addWidget(chartview)
+        self.setCentralWidget(chartview)
 
 
     def errorWithInput(self):
@@ -107,8 +106,7 @@ class MyWindow(QMainWindow):
         self.label.setText("Total spendings: " + str(self.total))
 
     def initUI(self):
-        self.mainLayout = QtWidgets.QHBoxLayout()
-        
+           
         self.label = QtWidgets.QLabel(self)
         self.label.setText("Total spendings: " + str(self.total))
         self.label.move(250, 0)
