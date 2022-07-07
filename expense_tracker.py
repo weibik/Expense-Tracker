@@ -62,11 +62,10 @@ class MyWindow(QMainWindow):
         self.backButton.setText("Back")
         self.backButton.clicked.connect(self.initUI)
 
-        self.mainLayout.addWidget(self.chartview)
         self.setCentralWidget(self.chartview)
+        
+        self.mainLayout.addWidget(self.chartview)
         self.mainLayout.addWidget(self.backButton)
-        self.setLayout(self.mainLayout)
-
         #for i in range(0, 3):
         #    time.sleep(1)
         #self.chartview.setHidden(not self.chartview.isHidden())
@@ -117,6 +116,10 @@ class MyWindow(QMainWindow):
         self.label = QtWidgets.QLabel(self)
         self.label.setText("Total spendings: " + str(self.total))
         self.label.move(250, 0)
+
+        self.signatue = QtWidgets.QLabel(self)
+        self.signatue.setText("Jakub Szkoła\n     2022")
+        self.signatue.move(15, 0)
 
         self.addExpenseButton = QtWidgets.QPushButton(self)
         self.addExpenseButton.setText("Add expense")
