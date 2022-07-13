@@ -169,3 +169,10 @@ def window():
     sys.exit(app.exec_())
 
 window()
+
+
+
+# THINGS TO ADD
+# DEFAULT VALUES FROM A FILE
+# POSSIBILITY TO SAVE TO FILE
+# ENSCRYPTION OF A DATA IN THE FILE
